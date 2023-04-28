@@ -17,9 +17,7 @@ import java.util.function.Function;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query("""
-            select (count(u) > 0) from User u
-            where upper(u.mobile_txt) like upper(?1) or upper(u.email_txt) like upper(?2)""")
+    @Query("select (count(u) > 0) from User u where upper(u.mobile_txt) like upper(?1) or upper(u.email_txt) like upper(?2)")
     boolean checkIfUserExists(@Nullable String mobile_txt, @Nullable String email_txt);
 
     @Query("select (count(u) > 0) from User u where u.mobile_txt like ?1 and u.password = ?2")
